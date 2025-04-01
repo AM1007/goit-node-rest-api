@@ -2,37 +2,37 @@ import Joi from "joi";
 
 export const contactAddSchema = Joi.object({
   name: Joi.string().required().messages({
-    "string.empty": "Name is required and cannot be empty",
-    "any.required": "Name field is required",
+    "string.empty": "name is required and cannot be empty",
+    "any.required": "name field is required",
   }),
   email: Joi.string().email().required().messages({
-    "string.empty": "Email is required and cannot be empty",
-    "string.email": "Please provide a valid email address",
-    "any.required": "Email field is required",
+    "string.empty": "email is required and cannot be empty",
+    "string.email": "email must be a valid email address",
+    "any.required": "email field is required",
   }),
   phone: Joi.string()
     .pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)
     .required()
     .messages({
-      "string.empty": "Phone number is required and cannot be empty",
-      "string.pattern.base": "Phone must be in format (XXX) XXX-XXXX",
-      "any.required": "Phone field is required",
+      "string.empty": "phone is required and cannot be empty",
+      "string.pattern.base": "phone must be in format (XXX) XXX-XXXX",
+      "any.required": "phone field is required",
     }),
 });
 
 export const contactUpdateSchema = Joi.object({
   name: Joi.string().messages({
-    "string.empty": "Name cannot be empty",
+    "string.empty": "name cannot be empty",
   }),
   email: Joi.string().email().messages({
-    "string.empty": "Email cannot be empty",
-    "string.email": "Email must be a valid email",
+    "string.empty": "email cannot be empty",
+    "string.email": "email must be a valid email",
   }),
   phone: Joi.string()
     .pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)
     .messages({
-      "string.empty": "Phone cannot be empty",
-      "string.pattern.base": "Phone must be in format (XXX) XXX-XXXX",
+      "string.empty": "phone cannot be empty",
+      "string.pattern.base": "phone must be in format (XXX) XXX-XXXX",
     }),
 })
   .min(1)

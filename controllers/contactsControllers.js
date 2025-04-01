@@ -3,7 +3,7 @@ import HttpError from "../helpers/HttpError.js";
 import ctrlWrapper from "../decorators/ctrlWrapper.js";
 
 const getContactsController = async (req, res) => {
-  const data = await contactsService.getContacts();
+  const data = await contactsService.listContacts();
 
   res.json(data);
 };
