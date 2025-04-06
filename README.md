@@ -1,4 +1,6 @@
-# [**Homework Assignment. Topic 4. REST API**](./hw02_express.md)
+# [**Topic 4. REST API**](./hw02_express.md)
+
+# [**Topic 6. Contacts Management REST API with PostgreSQL & Sequelize**](./hw04_postgres.md)
 
 ## Installation and Running
 

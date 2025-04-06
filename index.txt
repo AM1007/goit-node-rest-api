@@ -1,7 +1,12 @@
+├── constants
+    └── contacts.js
 ├── controllers
     └── contactsControllers.js
 ├── db  
     └── contacts.json
+    └── sequelize.js
+    ├── models 
+        └── Contact.js
 ├── decorators
     └── ctrlWrapper.js
     └── validateBody.js
@@ -14,6 +19,7 @@
 ├── services
     └── contactsServices.js
 └── app.js
+└── .env
 └── index.md
 └── package-lock.json
 └── package.json
