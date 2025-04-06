@@ -43,7 +43,20 @@ const deleteContactByIdController = async (req, res) => {
     throw HttpError(404, `Contact with id=${id} not found`);
   }
 
-  res.status(204).send();
+  res
+    .status(200)
+    .json({ message: `Contact with id=${id} deleted successfully` });
+};
+
+const updateStatusContactController = async (req, res) => {
+  const { id } = req.params;
+  const data = await contactsService.updateStatusContact(id, req.body);
+
+  if (!data) {
+    throw HttpError(404, `Contact with id=${contactId} not found`);
+  }
+
+  res.json(data);
 };
 
 export default {
@@ -52,4 +65,5 @@ export default {
   addContactController: ctrlWrapper(addContactController),
   updateContactByIdController: ctrlWrapper(updateContactByIdController),
   deleteContactByIdController: ctrlWrapper(deleteContactByIdController),
+  updateStatusContactController: ctrlWrapper(updateStatusContactController),
 };
