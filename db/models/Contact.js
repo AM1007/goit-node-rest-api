@@ -6,6 +6,11 @@ const Contact = sequelize.define("Contact", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      notNull: {
+        msg: "The contact should have a name",
+      },
+    },
   },
   email: {
     type: DataTypes.STRING,
