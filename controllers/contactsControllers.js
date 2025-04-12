@@ -53,7 +53,7 @@ const updateStatusContactController = async (req, res) => {
   const data = await contactsService.updateStatusContact(id, req.body);
 
   if (!data) {
-    throw HttpError(404, `Contact with id=${contactId} not found`);
+    throw HttpError(404, `Contact with id=${id} not found`);
   }
 
   res.json(data);
