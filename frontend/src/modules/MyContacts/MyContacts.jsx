@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import MyContactsAddForm from "../myContactsAddForm/myContactsAddForm";
+import MyContactsAddForm from "../MyContactsAddForm/MyContactsAddForm";
 import ContactsList from "../ContactsList/ContactsList";
 import styles from "./MyContacts.module.css";
 
@@ -52,7 +52,7 @@ const MyContacts = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Менеджер контактів</h1>
+      <h1 className={styles.title}>Менеджер контактов</h1>
 
       {loading && <p className={styles.loading}>Загрузка...</p>}
       {error && <p className={styles.error}>Ошибка: {error}</p>}
