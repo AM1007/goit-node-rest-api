@@ -1,0 +1,30 @@
+├── constants
+    └── contacts.js
+├── controllers
+    └── contactsControllers.js
+├── db  
+    └── contacts.json
+    └── sequelize.js
+    ├── models 
+        └── Contact.js
+├── decorators
+    └── ctrlWrapper.js
+    └── validateBody.js
+├── helpers
+    └── HttpError.js
+├── routes
+    └── contactRouter.js
+├── schemas
+    └── contactsSchemas.js
+├── services
+    └── contactsServices.js
+└── app.js
+└── .env
+└── .gitignore
+└── index.txt
+└── package-lock.json
+└── package.json
+└── README.MD
+└── hw02_express.md
+└── hw04_postgres.md
+
