@@ -52,10 +52,10 @@ const MyContacts = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Менеджер контактов</h1>
+      <h1 className={styles.title}>Менеджер контактів</h1>
 
-      {loading && <p className={styles.loading}>Загрузка...</p>}
-      {error && <p className={styles.error}>Ошибка: {error}</p>}
+      {loading && <p className={styles.loading}>Завантаження...</p>}
+      {error && <p className={styles.error}>Помилка: {error}</p>}
 
       <div className={styles.formSection}>
         <MyContactsAddForm formSubmit={addContact} />
