@@ -4,6 +4,10 @@
 
 An upgraded version of the contacts management REST API now using PostgreSQL with Sequelize ORM for persistent data storage.
 
+#Result
+
+![screenshot](./assets/Screenshot%202025-04-06%20042428.png)
+
 ## Functionality
 
 The API provides a complete set of CRUD operations for managing contacts:
