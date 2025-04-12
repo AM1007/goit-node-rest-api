@@ -2,6 +2,8 @@
 
 # [**Topic 6. Contacts Management REST API with PostgreSQL & Sequelize**](./hw04_postgres.md)
 
+[back to General Description](../README.md)
+
 ## Installation and Running
 
 1. Clone the repository
