@@ -21,8 +21,8 @@ const authenticate = async (req, res, next) => {
   }
 
   const user = await findUser({ email: payload.email });
-  if (!user) {
-    return next(HttpError(401, `User with email=${email} not found`));
+  if (!user || !user.token) {
+    return next(HttpError(401, `User with email=${payload.email} not found`));
   }
   req.user = user;
   next();

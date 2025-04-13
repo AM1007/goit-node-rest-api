@@ -5,7 +5,7 @@ import sequelize from "../sequelize.js";
 import { emailRegexp } from "../../constants/auth.js";
 
 const User = sequelize.define("user", {
-  username: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -13,12 +13,18 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    validate: { is: emailRegexp },
   },
-  password: {
+  subscription: {
+    type: DataTypes.ENUM,
+    values: ["starter", "pro", "business"],
+    defaultValue: "starter",
+  },
+  token: {
     type: DataTypes.STRING,
-    allowNull: false,
+    defaultValue: null,
   },
 });
+
+// User.sync({ alter: true });
 
 export default User;

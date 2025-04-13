@@ -4,28 +4,38 @@ export const listContacts = (query) => Contact.findAll({ where: query });
 
 export const getContactById = (id) => Contact.findByPk(id);
 
-export const addContact = (data) => Contact.create(data);
-
-export const updateContact = async (id, data) => {
-  const contact = await getContactById(id);
-  if (!contact) return null;
-
-  return contact.update(data, {
-    returning: true,
+export const getContact = (query) =>
+  Contact.findOne({
+    where: query,
   });
+
+export const addContact = async (data) => {
+  try {
+    return await Contact.create(data);
+  } catch (error) {
+    console.error("Error adding contact:", error);
+    throw error;
+  }
 };
 
-export const removeContact = async (id) => {
-  const contact = await getContactById(id);
-  if (!contact) return null;
-  await Contact.destroy({
-    where: { id },
+export const updateContact = async (query, data) => {
+  const contact = await Contact.findOne({
+    where: query,
   });
+
+  if (!contact) return null;
+  await contact.update(data);
+  await contact.reload();
   return contact;
 };
 
-export const updateStatusContact = async (id, data) => {
-  const contact = await getContactById(id);
+export const removeContact = (query) =>
+  Contact.destroy({
+    where: query,
+  });
+
+export const updateStatusContact = async (query, data) => {
+  const contact = await getContact(query);
 
   if (!contact) return null;
   const updateData = { favorite: data.favorite };

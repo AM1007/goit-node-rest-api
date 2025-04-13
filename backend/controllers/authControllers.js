@@ -17,7 +17,25 @@ const loginController = async (req, res) => {
   res.json({ token });
 };
 
+const getCurrentController = (req, res) => {
+  const { email, username } = req.user;
+
+  res.json({
+    email,
+    username,
+  });
+};
+
+const logoutController = async (req, res) => {
+  const { id } = req.user;
+  await authServices.logoutUser(id);
+
+  res.json({ message: "Logout successfully" });
+};
+
 export default {
   registerController: ctrlWrapper(registerController),
   loginController: ctrlWrapper(loginController),
+  getCurrentController: ctrlWrapper(getCurrentController),
+  logoutController: ctrlWrapper(logoutController),
 };
