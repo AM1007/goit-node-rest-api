@@ -1,7 +1,8 @@
- ├── README.md
+├── README.md
     ├── app.js
     ├── assets
     │   └── Screenshot 2025-04-12 165628.png
+    ├── backend.txt
     ├── constants
     │   ├── auth.js
     │   └── contacts.js
@@ -17,9 +18,12 @@
     │   ├── ctrlWrapper.js
     │   └── validateBody.js
     ├── helpers
-    │   └── HttpError.js
+    │   ├── HttpError.js
+    │   └── jwt.js
     ├── hw02_express.md
     ├── hw04_postgres.md
+    ├── middlewares
+    │   └── authenticate.js
     ├── package-lock.json
     ├── package.json
     ├── routes

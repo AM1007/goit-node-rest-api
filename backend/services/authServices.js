@@ -49,5 +49,21 @@ export const loginUser = async (data) => {
 
   const token = generateToken(payload);
 
+  await user.update({ token });
+
   return { token };
+};
+
+export const logoutUser = async (id) => {
+  const user = await findUser({ id });
+
+  if (!user) {
+    throw HttpError(404, "User not found");
+  }
+
+  if (!user.token) {
+    throw HttpError(401, "User is not logged in");
+  }
+
+  await user.update({ token: null });
 };
