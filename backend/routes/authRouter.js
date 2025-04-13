@@ -12,4 +12,10 @@ authRouter.post(
   authControllers.registerController
 );
 
+authRouter.post(
+  "/login",
+  validateBody(authLoginSchema),
+  authControllers.loginController
+);
+
 export default authRouter;
