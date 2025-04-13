@@ -1,6 +1,6 @@
 import Contact from "../db/models/Contact.js";
 
-export const listContacts = () => Contact.findAll();
+export const listContacts = (query) => Contact.findAll({ where: query });
 
 export const getContactById = (id) => Contact.findByPk(id);
 

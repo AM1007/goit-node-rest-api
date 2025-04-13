@@ -20,7 +20,8 @@ const getContactByIdController = async (req, res) => {
 };
 
 const addContactController = async (req, res) => {
-  const data = await contactsService.addContact(req.body);
+  const { id: owner } = req.user;
+  const data = await contactsService.addContact({ owner });
   res.status(201).json(data);
 };
 

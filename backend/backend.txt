@@ -1,0 +1,33 @@
+ ├── README.md
+    ├── app.js
+    ├── assets
+    │   └── Screenshot 2025-04-12 165628.png
+    ├── constants
+    │   ├── auth.js
+    │   └── contacts.js
+    ├── controllers
+    │   ├── authControllers.js
+    │   └── contactsControllers.js
+    ├── db
+    │   ├── models
+    │   │   ├── Contact.js
+    │   │   └── User.js
+    │   └── sequelize.js
+    ├── decorators
+    │   ├── ctrlWrapper.js
+    │   └── validateBody.js
+    ├── helpers
+    │   └── HttpError.js
+    ├── hw02_express.md
+    ├── hw04_postgres.md
+    ├── package-lock.json
+    ├── package.json
+    ├── routes
+    │   ├── authRouter.js
+    │   └── contactsRouter.js
+    ├── schemas
+    │   ├── authSchemas.js
+    │   └── contactsSchemas.js
+    └── services
+    │   ├── authServices.js
+    │   └── contactsServices.js
