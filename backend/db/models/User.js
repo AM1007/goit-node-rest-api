@@ -13,6 +13,9 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    validate: {
+      is: emailRegexp,
+    },
   },
   subscription: {
     type: DataTypes.ENUM,
@@ -24,7 +27,5 @@ const User = sequelize.define("user", {
     defaultValue: null,
   },
 });
-
-// User.sync({ alter: true });
 
 export default User;

@@ -1,8 +1,23 @@
-# [**Topic 4. REST API**](./hw02_express.md)
-
-# [**Topic 6. Contacts Management REST API with PostgreSQL & Sequelize**](./hw04_postgres.md)
+# Contacts Management REST API
 
 [back to General Description](../README.md)
+
+## Project Components
+
+# [**Topic 4. REST API Basics**](./hw02_express.md)
+
+# [**Topic 6. PostgreSQL & Sequelize Integration**](./hw04_postgres.md)
+
+# [**Topic 7. Authentication & Authorization**](./hw07_authentication.md)
+
+## Features
+
+- Complete CRUD operations for contacts management
+- PostgreSQL database with Sequelize ORM
+- User authentication and authorization with JWT
+- Data validation with Joi
+- Secure password handling with bcrypt
+- User-specific contacts (data isolation)
 
 ## Installation and Running
 
@@ -19,7 +34,27 @@ cd goit-node-rest-api
 npm install
 ```
 
-3. Run the server
+3. Set up environment variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```
+# Database Configuration
+DATABASE_DIALECT=postgres
+DATABASE_USERNAME=your_username
+DATABASE_PASSWORD=your_password
+DATABASE_HOST=your_host
+DATABASE_NAME=your_database
+DATABASE_PORT=5432
+
+# JWT Secret
+JWT_SECRET=your_jwt_secret
+
+# Server Configuration
+PORT=3000
+```
+
+4. Run the server
 
 ```bash
 # Development mode (with nodemon)
@@ -29,28 +64,67 @@ npm run dev
 npm start
 ```
 
-4. The API will be available at
+5. The API will be available at
 
 ```bash
-http://localhost:3000/api/contacts
+http://localhost:3000/api
 ```
+
+## API Endpoints
+
+### Authentication
+
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login and receive JWT token
+- `GET /api/auth/current` - Get current user info
+- `POST /api/auth/logout` - Logout (invalidate token)
+
+### Contacts (Protected Routes)
+
+- `GET /api/contacts` - Get all contacts
+- `GET /api/contacts/:id` - Get contact by ID
+- `POST /api/contacts` - Create a new contact
+- `PUT /api/contacts/:id` - Update a contact
+- `DELETE /api/contacts/:id` - Delete a contact
+- `PATCH /api/contacts/:id/favorite` - Update contact favorite status
 
 ## Testing the API
 
 For testing the API, it's recommended to use Postman or another HTTP client.
 
+### Authentication Flow
+
+1. Register a new user (`POST /api/auth/register`)
+2. Login to receive JWT token (`POST /api/auth/login`)
+3. Add the token to the Authorization header (`Authorization: Bearer your_token`)
+4. Access protected contacts routes
+
 ### Data Validation
 
 The API validates all input data:
 
-- The `name` field must be a non-empty string
-- The `email` field must be a valid email address
-- The `phone` field must match the format (XXX) XXX-XXXX
+- User registration and login data
+- Contact fields (name, email, phone)
+- Data format and requirements
 
 ### Error Handling
 
 The API returns clear error messages with appropriate HTTP statuses:
 
 - `400`: Data validation errors
+- `401`: Authentication errors
 - `404`: Resource not found
+- `409`: Conflict (e.g., email already in use)
 - `500`: Internal server errors
+
+## Technical Architecture
+
+The application follows a clean architecture pattern:
+
+- **Models:** Sequelize models defining the database schema (User, Contact)
+- **Controllers:** Handle HTTP requests and responses
+- **Services:** Business logic layer
+- **Routes:** Define API endpoints
+- **Schemas:** Joi validation schemas
+- **Middleware:** Request processing (authentication, validation, error handling)
+- **Helpers:** Utility functions (JWT, error handling)
