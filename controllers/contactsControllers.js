@@ -3,14 +3,15 @@ import HttpError from "../helpers/HttpError.js";
 import ctrlWrapper from "../decorators/ctrlWrapper.js";
 
 const getContactsController = async (req, res) => {
-  const data = await contactsService.listContacts();
-
+  const { id: owner } = req.user;
+  const data = await contactsService.listContacts({ owner });
   res.json(data);
 };
 
 const getContactByIdController = async (req, res) => {
   const { id } = req.params;
-  const data = await contactsService.getContactById(id);
+  const { id: owner } = req.user;
+  const data = await contactsService.getContact({ id, owner });
 
   if (!data) {
     throw HttpError(404, `Contact with id=${id} not found`);
@@ -20,13 +21,16 @@ const getContactByIdController = async (req, res) => {
 };
 
 const addContactController = async (req, res) => {
-  const data = await contactsService.addContact(req.body);
+  const { id: owner } = req.user;
+  const data = await contactsService.addContact({ ...req.body, owner });
   res.status(201).json(data);
 };
 
 const updateContactByIdController = async (req, res) => {
   const { id } = req.params;
-  const data = await contactsService.updateContact(id, req.body);
+  const { id: owner } = req.user;
+
+  const data = await contactsService.updateContact({ id, owner }, req.body);
 
   if (!data) {
     throw HttpError(404, `Contact with id=${id} not found`);
@@ -37,7 +41,8 @@ const updateContactByIdController = async (req, res) => {
 
 const deleteContactByIdController = async (req, res) => {
   const { id } = req.params;
-  const data = await contactsService.removeContact(id);
+  const { id: owner } = req.user;
+  const data = await contactsService.removeContact({ id, owner });
 
   if (!data) {
     throw HttpError(404, `Contact with id=${id} not found`);
