@@ -1,7 +1,5 @@
 # Contacts Management REST API
 
-[back to General Description](../README.md)
-
 ## Project Components
 
 # [**Topic 4. REST API Basics**](./hw02_express.md)
