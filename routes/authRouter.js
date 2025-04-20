@@ -29,6 +29,13 @@ authRouter.get(
   authControllers.getCurrentController
 );
 
+authRouter.patch(
+  "/avatars",
+  authenticate,
+  upload("avatar"),
+  authControllers.updateAvatarController
+);
+
 authRouter.post("/logout", authenticate, authControllers.logoutController);
 
 export default authRouter;

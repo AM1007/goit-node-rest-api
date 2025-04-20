@@ -34,9 +34,7 @@ export const removeContact = (query) =>
     where: query,
   });
 
-export const updateStatusContact = async (id, data) => {
-  const query = { id };
-
+export const updateStatusContact = async (query, data) => {
   const contact = await getContact(query);
   if (!contact) return null;
   const updateData = { favorite: data.favorite };

@@ -8,14 +8,6 @@ import ctrlWrapper from "../decorators/ctrlWrapper.js";
 const postersDir = path.resolve("public", "avatars");
 
 const registerController = async (req, res) => {
-  let avatar = null;
-  if (req.file) {
-    const { path: oldPath, filename } = req.file;
-    const newPath = path.join(postersDir, filename);
-    await fs.rename(oldPath, newPath);
-    avatar = path.join("public", "avatars", filename);
-  }
-
   const newUser = await authServices.registerUser(req.body);
   res.status(201).json({
     user: {
@@ -47,6 +39,24 @@ const getCurrentController = (req, res) => {
   });
 };
 
+const updateAvatarController = async (req, res) => {
+  if (!req.file) {
+    throw HttpError(400, "Avatar is required");
+  }
+
+  const { path: oldPath, filename } = req.file;
+  const newPath = path.join(postersDir, filename);
+  await fs.rename(oldPath, newPath);
+  const avatarURL = path.join("avatars", filename);
+
+  const { id } = req.user;
+  const user = await authServices.updateUserAvatar(id, avatarURL);
+
+  res.json({
+    avatarURL: user.avatarURL,
+  });
+};
+
 const logoutController = async (req, res) => {
   const { id } = req.user;
   await authServices.logoutUser(id);
@@ -59,4 +69,5 @@ export default {
   loginController: ctrlWrapper(loginController),
   getCurrentController: ctrlWrapper(getCurrentController),
   logoutController: ctrlWrapper(logoutController),
+  updateAvatarController: ctrlWrapper(updateAvatarController),
 };
