@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import gravatar from "gravatar";
 
 import User from "../db/models/User.js";
 
@@ -23,8 +24,10 @@ export const registerUser = async (data) => {
     throw HttpError(409, "Email already in use");
   }
 
+  const avatarURL = gravatar.url(email, { s: "250", r: "pg", d: "identicon" });
+
   const hashPassword = await bcrypt.hash(password, 10);
-  return User.create({ ...data, password: hashPassword });
+  return User.create({ ...data, password: hashPassword, avatarURL });
 };
 
 export const loginUser = async (data) => {

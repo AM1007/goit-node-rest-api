@@ -1,11 +1,22 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+
 import * as authServices from "../services/authServices.js";
 
 import ctrlWrapper from "../decorators/ctrlWrapper.js";
 
-const registerController = async (req, res) => {
-  console.log({ body: req.body, file: req.file });
-  const newUser = await authServices.registerUser(req.body);
+const postersDir = path.resolve("public", "avatars");
 
+const registerController = async (req, res) => {
+  let avatar = null;
+  if (req.file) {
+    const { path: oldPath, filename } = req.file;
+    const newPath = path.join(postersDir, filename);
+    await fs.rename(oldPath, newPath);
+    avatar = path.join("public", "avatars", filename);
+  }
+
+  const newUser = await authServices.registerUser(req.body);
   res.status(201).json({
     user: {
       email: newUser.email,
@@ -27,11 +38,12 @@ const loginController = async (req, res) => {
 };
 
 const getCurrentController = (req, res) => {
-  const { email, subscription } = req.user;
+  const { email, subscription, avatarURL } = req.user;
 
   res.json({
     email,
     subscription,
+    avatarURL,
   });
 };
 

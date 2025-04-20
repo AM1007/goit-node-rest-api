@@ -25,6 +25,8 @@ const fileFilter = (req, file, callback) => {
   callback(null, true);
 };
 
-const upload = multer({ storage, limits, fileFilter });
+const upload = (fieldName) => {
+  return multer({ storage, limits, fileFilter }).single(fieldName);
+};
 
 export default upload;
