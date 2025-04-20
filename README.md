@@ -8,6 +8,8 @@
 
 # [**Topic 7. Authentication & Authorization**](./hw07_authentication.md)
 
+# [**Topic 8. File Processing**](./hw08_file_Processing.md)
+
 ## Features
 
 - Complete CRUD operations for contacts management
