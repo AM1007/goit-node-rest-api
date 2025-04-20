@@ -1,6 +1,7 @@
 import express from "express";
 
 import authenticate from "../middlewares/authenticate.js";
+import upload from "../middlewares/upload.js";
 
 import authControllers from "../controllers/authControllers.js";
 import validateBody from "../decorators/validateBody.js";
@@ -10,6 +11,7 @@ const authRouter = express.Router();
 
 authRouter.post(
   "/register",
+  upload("avatar"),
   validateBody(authRegisterSchema),
   authControllers.registerController
 );
@@ -20,7 +22,12 @@ authRouter.post(
   authControllers.loginController
 );
 
-authRouter.get("/current", authenticate, authControllers.getCurrentController);
+authRouter.get(
+  "/current",
+  upload("avatar"),
+  authenticate,
+  authControllers.getCurrentController
+);
 
 authRouter.post("/logout", authenticate, authControllers.logoutController);
 

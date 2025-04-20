@@ -3,6 +3,7 @@ import * as authServices from "../services/authServices.js";
 import ctrlWrapper from "../decorators/ctrlWrapper.js";
 
 const registerController = async (req, res) => {
+  console.log({ body: req.body, file: req.file });
   const newUser = await authServices.registerUser(req.body);
 
   res.status(201).json({
