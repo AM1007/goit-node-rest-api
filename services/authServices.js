@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import gravatar from "gravatar";
 
 import User from "../db/models/User.js";
@@ -37,6 +36,7 @@ export const loginUser = async (data) => {
       email,
     },
   });
+
   if (!user) {
     throw HttpError(401, "Email or password is wrong");
   }
@@ -81,4 +81,24 @@ export const updateUserAvatar = async (id, avatarURL) => {
 
   await user.update({ avatarURL });
   return user;
+};
+
+const createVerifyEmail = (email, verificationCode) => ({
+  to: email,
+  subject: "Verify email",
+  html: `<a href="${APP_DOMAIN}/api/auth/verify/${verificationCode}" target="_blank">Click verify email</a>`,
+});
+
+export const resendVerifyEmail = async (email) => {
+  const user = await findUser({ email });
+  if (!user) {
+    throw HttpError(404, "Email not found");
+  }
+  if (user.verify) {
+    throw HttpError(401, "Email already verified");
+  }
+
+  const verifyEmail = createVerifyEmail(email, user.verificationCode);
+
+  await sendEmail(verifyEmail);
 };
