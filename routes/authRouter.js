@@ -5,7 +5,11 @@ import upload from "../middlewares/upload.js";
 
 import authControllers from "../controllers/authControllers.js";
 import validateBody from "../decorators/validateBody.js";
-import { authRegisterSchema, authLoginSchema } from "../schemas/authSchemas.js";
+import {
+  authRegisterSchema,
+  authLoginSchema,
+  authVerifySchema,
+} from "../schemas/authSchemas.js";
 
 const authRouter = express.Router();
 
@@ -37,5 +41,13 @@ authRouter.patch(
 );
 
 authRouter.post("/logout", authenticate, authControllers.logoutController);
+
+authRouter.post(
+  "/verify",
+  validateBody(authVerifySchema),
+  authControllers.resendVerifyEmailController
+);
+
+authRouter.get("/verify/:verificationCode", authControllers.verifyController);
 
 export default authRouter;

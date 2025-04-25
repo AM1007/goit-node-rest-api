@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { nanoid } from "nanoid";
 
 import * as authServices from "../services/authServices.js";
 
@@ -8,12 +9,42 @@ import ctrlWrapper from "../decorators/ctrlWrapper.js";
 const postersDir = path.resolve("public", "avatars");
 
 const registerController = async (req, res) => {
-  const newUser = await authServices.registerUser(req.body);
+  const { email } = req.body;
+
+  const user = await authServices.findUser({ email });
+  if (user) {
+    throw HttpError(409, "Email already in use");
+  }
+
+  const verificationToken = nanoid();
+
+  const newUser = await authServices.registerUser({
+    ...req.body,
+    verificationToken,
+  });
   res.status(201).json({
     user: {
       email: newUser.email,
       subscription: newUser.subscription,
     },
+  });
+};
+
+const verifyController = async (req, res) => {
+  const { verificationToken } = req.params;
+  await authServices.verifyUser(verificationToken);
+
+  res.json({
+    message: "Email verified successfully",
+  });
+};
+
+const resendVerifyEmailController = async (req, res) => {
+  const { email } = req.body;
+  await authServices.resendVerifyEmail(email);
+
+  res.json({
+    message: "Verify email resend",
   });
 };
 
@@ -70,4 +101,6 @@ export default {
   getCurrentController: ctrlWrapper(getCurrentController),
   logoutController: ctrlWrapper(logoutController),
   updateAvatarController: ctrlWrapper(updateAvatarController),
+  resendVerifyEmailController: ctrlWrapper(resendVerifyEmailController),
+  verifyController: ctrlWrapper(verifyController),
 };
