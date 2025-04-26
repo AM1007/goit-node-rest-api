@@ -15,6 +15,10 @@ app.use(express.static("public"));
 
 app.use("/api/auth", authRouter);
 app.use("/api/contacts", contactsRouter);
+app.get("/auth/verify/:verificationToken", (req, res) => {
+  const { verificationToken } = req.params;
+  res.redirect(`/api/auth/verify/${verificationToken}`);
+});
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });

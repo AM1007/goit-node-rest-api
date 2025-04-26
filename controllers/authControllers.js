@@ -1,28 +1,21 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { nanoid } from "nanoid";
 
 import * as authServices from "../services/authServices.js";
 
 import ctrlWrapper from "../decorators/ctrlWrapper.js";
+import HttpError from "../helpers/HttpError.js";
 
 const postersDir = path.resolve("public", "avatars");
 
 const registerController = async (req, res) => {
   const { email } = req.body;
 
-  const user = await authServices.findUser({ email });
-  if (user) {
-    throw HttpError(409, "Email already in use");
-  }
+  const newUser = await authServices.registerUser(req.body);
 
-  const verificationToken = nanoid();
-
-  const newUser = await authServices.registerUser({
-    ...req.body,
-    verificationToken,
-  });
   res.status(201).json({
+    message:
+      "Verification email has been sent. Please check your email to complete registration.",
     user: {
       email: newUser.email,
       subscription: newUser.subscription,
@@ -32,24 +25,37 @@ const registerController = async (req, res) => {
 
 const verifyController = async (req, res) => {
   const { verificationToken } = req.params;
-  await authServices.verifyUser(verificationToken);
+  const user = await authServices.verifyUser(verificationToken);
 
   res.json({
-    message: "Email verified successfully",
+    message: "Email verified successfully. You can now log in.",
+    user: {
+      email: user.email,
+      subscription: user.subscription,
+    },
   });
 };
 
 const resendVerifyEmailController = async (req, res) => {
   const { email } = req.body;
+
+  if (!email) {
+    throw HttpError(400, "missing required field email");
+  }
+
   await authServices.resendVerifyEmail(email);
 
   res.json({
-    message: "Verify email resend",
+    message: "Verification email sent",
   });
 };
 
 const loginController = async (req, res) => {
   const { token, user } = await authServices.loginUser(req.body);
+
+  if (!user.verify) {
+    throw HttpError(401, "Email or password invalid");
+  }
 
   res.json({
     token,
@@ -97,10 +103,10 @@ const logoutController = async (req, res) => {
 
 export default {
   registerController: ctrlWrapper(registerController),
+  verifyController: ctrlWrapper(verifyController),
+  resendVerifyEmailController: ctrlWrapper(resendVerifyEmailController),
   loginController: ctrlWrapper(loginController),
   getCurrentController: ctrlWrapper(getCurrentController),
   logoutController: ctrlWrapper(logoutController),
   updateAvatarController: ctrlWrapper(updateAvatarController),
-  resendVerifyEmailController: ctrlWrapper(resendVerifyEmailController),
-  verifyController: ctrlWrapper(verifyController),
 };
