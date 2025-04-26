@@ -5,7 +5,6 @@
 ├── constants
     ├── auth.js
     └── contacts.js
-├── contactsServices.js
 ├── controllers
     ├── authControllers.js
     └── contactsControllers.js
@@ -19,11 +18,11 @@
     └── validateBody.js
 ├── helpers
     ├── HttpError.js
-    └── jwt.js
+    ├── jwt.js
+    └── sendEmail.js
 ├── hw02_express.md
 ├── hw04_postgres.md
 ├── hw07_authentication.md
-├── index.txt
 ├── middlewares
     ├── authenticate.js
     └── upload.js
@@ -31,6 +30,7 @@
 ├── package.json
 ├── public
     └── avatars
+    │   ├── 1745176475509_151224669_enya.png
     │   └── enya.png
 ├── routes
     ├── authRouter.js

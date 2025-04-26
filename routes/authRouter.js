@@ -42,12 +42,11 @@ authRouter.patch(
 
 authRouter.post("/logout", authenticate, authControllers.logoutController);
 
+authRouter.get("/verify/:verificationToken", authControllers.verifyController);
+
 authRouter.post(
   "/verify",
   validateBody(authVerifySchema),
   authControllers.resendVerifyEmailController
 );
-
-authRouter.get("/verify/:verificationCode", authControllers.verifyController);
-
 export default authRouter;

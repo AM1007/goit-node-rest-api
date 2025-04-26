@@ -13,5 +13,9 @@ export const authLoginSchema = Joi.object({
 });
 
 export const authVerifySchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required(),
+  email: Joi.string().pattern(emailRegexp).required().messages({
+    "any.required": "missing required field email",
+    "string.empty": "missing required field email",
+    "string.pattern.base": "email must be valid",
+  }),
 });
