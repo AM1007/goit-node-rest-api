@@ -36,6 +36,7 @@ const User = sequelize.define("user", {
   },
   verificationToken: {
     type: DataTypes.STRING,
+    required: [true, "Verify token is required"],
   },
 });
 

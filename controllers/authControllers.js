@@ -28,11 +28,7 @@ const verifyController = async (req, res) => {
   const user = await authServices.verifyUser(verificationToken);
 
   res.json({
-    message: "Email verified successfully. You can now log in.",
-    user: {
-      email: user.email,
-      subscription: user.subscription,
-    },
+    message: "Verification successful",
   });
 };
 

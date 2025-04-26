@@ -8,6 +8,8 @@
 
 # [**Topic 7. Authentication & Authorization**](./hw07_authentication.md)
 
+# [**Topic 10. Email Verification**](./hw06_email.md)
+
 ## Features
 
 - Complete CRUD operations for contacts management

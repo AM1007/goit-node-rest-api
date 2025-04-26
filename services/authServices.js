@@ -63,7 +63,7 @@ export const verifyUser = async (verificationToken) => {
   });
 
   if (!user) {
-    throw HttpError(404, "User not found or user already verified");
+    throw HttpError(404, "User not found");
   }
 
   if (user.verify) {
